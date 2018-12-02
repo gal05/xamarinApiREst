@@ -8,8 +8,21 @@ using System.Text;
 namespace MVVM.Model
 {
     public class Post:INotifyPropertyChanged
-    {
-        public int Id { get; set; }
+    {   
+        private int _id;
+        [JsonProperty("id")]
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
 
         private string _nombre;
 

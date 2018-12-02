@@ -35,15 +35,16 @@ namespace MVVM.View
             string content = await _client.GetStringAsync(Url);
             List<Post> posts = JsonConvert.DeserializeObject<List<Post>>(content);
             _posts = new ObservableCollection<Post>(posts);
-            Debug.WriteLine(_posts);
             MyListView.ItemsSource = _posts;
             base.OnAppearing();
         }
         private async void  OnAdd(Object sender,EventArgs e)
         {
-            Post post = new Post { Nombre = "xamarin", Apellido = "form", Edad = 22 };
+
+            Post post = new Post {Id=0, Nombre = "xamarin", Apellido = "form", Edad = 22 };
             string content = JsonConvert.SerializeObject(post);
-            await _client.PostAsync(Url, new StringContent(content, Encoding.UTF8, "aplication/json"));
+            Debug.WriteLine(content);
+            await _client.PostAsync(Url, new StringContent(content, Encoding.UTF8, "application/json"));
             _posts.Insert(0, post);
         }
 
