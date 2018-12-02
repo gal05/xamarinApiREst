@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVM.View;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace MVVM
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new PersonaPage());
         }
 
         protected override void OnStart()
