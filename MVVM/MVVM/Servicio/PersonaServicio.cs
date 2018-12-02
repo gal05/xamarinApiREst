@@ -26,11 +26,10 @@ namespace MVVM.Servicio
         }
 
 
-        public override async ObservableCollection<PersonaModel> Consultar()
+        public ObservableCollection<PersonaModel> Consultar()
         {
-            string content = await client.GetStringAsync(URL);
-            List<PersonaModel> data = JsonConvert.DeserializeObject<List<PersonaModel>>(content);
-            return data;
+ 
+            return personas;
         }
         public void Guardar(PersonaModel modelo)
         {

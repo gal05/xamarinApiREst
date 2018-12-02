@@ -11,8 +11,8 @@ namespace MVVM
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new PersonaPage());
+            MainPage = new api2();
+            //MainPage = new NavigationPage(new PersonaPage());
         }
 
         protected override void OnStart()
