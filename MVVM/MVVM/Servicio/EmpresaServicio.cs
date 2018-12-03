@@ -42,6 +42,14 @@ namespace MVVM.Servicio
             return _empresas;   
         }
 
+        public async void OnAdd(EmpresaModel empresa)
+        {
+            string content = JsonConvert.SerializeObject(empresa);
+            Debug.WriteLine("to guardar!!!!----------->"+content);
+            await _client.PostAsync(Url, new StringContent(content, Encoding.UTF8, "application/json"));
+            empresas.Insert(0, empresa);
+        }
+
         public void GuardarLocal(EmpresaModel modelo)
         {
             empresas.Add(modelo);

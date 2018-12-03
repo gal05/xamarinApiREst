@@ -34,7 +34,7 @@ namespace MVVM.Model
 
         private string _direccion;
         [JsonProperty("direccion")]
-        public string Direccion { get { return _nombre; }
+        public string Direccion { get { return _direccion; }
             set {
                 _direccion = value;
                 OnPropertyChanged();

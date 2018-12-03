@@ -38,17 +38,25 @@ namespace MVVM.ViewModel
         private async Task Guardar()
         {
             IsBusy = true;
-            await Task.Delay(1000);
+            string ido="";
             Guid IdEmpresa = Guid.NewGuid();
+            ido = Id;
+            await Task.Delay(1000);
+            if (Id ==null || Id == "")
+            {
+                ido = IdEmpresa.ToString();
+            }
+
             empresa = new EmpresaModel()
             {
                 Nombre = Nombre,
                 Direccion = Direccion,
                 Telefono = Telefono ,
                 Nempleados= Nempleados,
-                Id = IdEmpresa.ToString()
+                Id = ido
             };
             Debug.WriteLine("guardar el id ..............."+empresa.Id+" nombre : " + empresa.Nombre);
+            servicio.OnAdd(empresa);
             IsBusy = false;
         }
         private async Task Modificar()
@@ -68,22 +76,26 @@ namespace MVVM.ViewModel
             Direccion= "";
             Telefono = 0;
             Nempleados = 0;
+            Id = "";
         }
 
 
         public  async Task listarEmpresasAsync()
         {
+            IsBusy = true;
+            Empresas.Clear();
             empresasFromApi = await servicio.getEmpresas();
             string s = JsonConvert.SerializeObject(empresasFromApi);
             Debug.WriteLine("desde ciew model     :    "+s);
             foreach (EmpresaModel emp in empresasFromApi)
             {
                 servicio.GuardarLocal(emp);
-                Debug.WriteLine(emp.Id);
+                //Debug.WriteLine(emp.Id);
             }
-            string a = JsonConvert.SerializeObject(Empresas);
-            Debug.WriteLine("desde viewmodelContructor     :    " + a);
+            //string a = JsonConvert.SerializeObject(Empresas);
+            //Debug.WriteLine("desde viewmodelContructor     :    " + a);
             await Task.Delay(2000);
+            IsBusy = false;
         }
     }
 }
