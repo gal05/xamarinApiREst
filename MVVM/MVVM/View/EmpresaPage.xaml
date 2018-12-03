@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MVVM.View.EmpresaPage">
-    <ScrollView>
-        <StackLayout>
+    <ScrollView BackgroundColor="DarkSalmon">
+        <StackLayout Padding="20">
+            <Label Text="APP EMRESA :v" HorizontalOptions="Center" TextColor="GreenYellow" FontSize="20"></Label>
             <Label Text="{Binding  Id}"></Label>
             <Label Text="Nombre"></Label>
             <Entry Text="{Binding  Nombre}"></Entry>
@@ -14,11 +15,11 @@
             <Label Text="Numero de empleados"></Label>
             <Entry Text="{Binding  Nempleados}" Keyboard="Numeric"></Entry>
 
-            <Button Text="Listar" Command="{Binding ListarCommand}"></Button>
-            <Button Text="Guardar" Command="{Binding GuardarCommand}"></Button>
-            <Button Text="Modificar" Command="{Binding ModificarCommand }"></Button>
-            <Button Text="Eliminar" Command="{Binding EliminarCommand}"></Button>
-            <Button Text="Limpiar" Command="{Binding LimpiarCommand}"></Button>
+            <Button Text="Listar" Command="{Binding ListarCommand}" BackgroundColor="#323232" TextColor="#A9F5A9"></Button>
+            <Button Text="Guardar" Command="{Binding GuardarCommand}" TextColor="#A9F5A9" BackgroundColor="BlueViolet"></Button>
+            <Button Text="Modificar" Command="{Binding ModificarCommand }" TextColor="#A9F5A9" BackgroundColor="Blue"></Button>
+            <Button Text="Eliminar" Command="{Binding EliminarCommand}" TextColor="#A9F5A9" BackgroundColor="DarkCyan"></Button>
+            <Button Text="Limpiar" Command="{Binding LimpiarCommand}" TextColor="#A9F5A9" BackgroundColor="DarkGreen"></Button>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding Isbusy}"></ActivityIndicator>
             <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
                 <ListView.ItemTemplate>
