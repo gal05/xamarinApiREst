@@ -35,7 +35,7 @@ namespace MVVM.Servicio
             string content = await _client.GetStringAsync(Url);
             List<EmpresaModel> posts = JsonConvert.DeserializeObject<List<EmpresaModel>>(content);
             _empresas = new ObservableCollection<EmpresaModel>(posts);
-            Debug.WriteLine("Consulta ..............." + _empresas[0].Id + " nombre : " + _empresas[0].Nombre);
+            Debug.WriteLine("Consulta ..............." + _empresas[0].ToString() + " nombre : " + _empresas[0].Nombre);
          return _empresas;   
         }
     }

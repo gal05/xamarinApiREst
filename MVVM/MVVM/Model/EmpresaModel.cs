@@ -5,47 +5,68 @@ using System.Text;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MVVM.Model
 {
-    public partial class EmpresaModel
+    public class EmpresaModel : INotifyPropertyChanged
     {
+        private string _id;
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id {
+            get { return _id; }
+            set {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
 
+        private string _nombre;
         [JsonProperty("nombre")]
-        public string Nombre { get; set; }
+        public string Nombre {
+            get { return _nombre; }
+            set { _nombre = value;
+                OnPropertyChanged();
+            }
+        }
 
+
+        private string _direccion;
         [JsonProperty("direccion")]
-        public string Direccion { get; set; }
+        public string Direccion { get { return _nombre; }
+            set {
+                _direccion = value;
+                OnPropertyChanged();
+            }
+        }
 
+        private string _telefono;
         [JsonProperty("telefono")]
-        public long Telefono { get; set; }
+        public string Telefono {
+            get { return _telefono; }
+            set {
+                _telefono = value;
+                OnPropertyChanged();
+            }
+        }
 
+
+        private string _nempleados;
         [JsonProperty("nempleados")]
-        public long Nempleados { get; set; }
-    }
-
-    public partial class EmpresaModel
+        public string Nempleados { get {
+                return _nempleados;
+            }
+            set {
+                _nempleados = value;
+                OnPropertyChanged();
+            }
+        }
+   
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        public static EmpresaModel[] FromJson(string json) => JsonConvert.DeserializeObject<EmpresaModel[]>(json, MVVM.Model.Converter.Settings);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-    public static class Serialize
-    {
-        public static string ToJson(this EmpresaModel[] self) => JsonConvert.SerializeObject(self, MVVM.Model.Converter.Settings);
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
-    }
+}
 }

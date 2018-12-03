@@ -55,7 +55,7 @@ namespace MVVM.ViewModel
         private async Task Eliminar()
         {
             await Task.Delay(1000);
-            Debug.WriteLine(Empresas);
+            Debug.WriteLine(Empresas[0].ToString());
         }
 
         private async Task Limpiar()
