@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace MVVM.ViewModel
 {
-    class PersonaViewModel:PersonaModel
+    public class PersonaViewModel:PersonaModel
     {
         public ObservableCollection<PersonaModel> Personas { get; set; }
         PersonaServicio servicio = new PersonaServicio();

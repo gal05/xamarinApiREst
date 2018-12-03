@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVM.View.EmpresaPage">
+    <ScrollView>
+        <StackLayout>
+            <Label Text="{Binding  Id}"></Label>
+            <Label Text="Nombre"></Label>
+            <Entry Text="{Binding  Nombre}"></Entry>
+            <Label Text="Direccion"></Label>
+            <Entry Text="{Binding  Direccion}"></Entry>
+            <Label Text="Telefono"></Label>
+            <Entry Text="{Binding  Telefono}" Keyboard="Numeric"></Entry>
+            <Label Text="Numero de empleados"></Label>
+            <Entry Text="{Binding  Nempleados}" Keyboard="Numeric"></Entry>
+
+            <Button Text="Guardar" Command="{Binding GuardarCommand}"></Button>
+            <Button Text="Modificar" Command="{Binding ModificarCommand }"></Button>
+            <Button Text="Eliminar" Command="{Binding EliminarCommand}"></Button>
+            <Button Text="Limpiar" Command="{Binding LimpiarCommand}"></Button>
+            <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Id}" Detail="{Binding Nombre}">
+
+                        </TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

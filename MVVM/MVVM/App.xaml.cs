@@ -11,7 +11,8 @@ namespace MVVM
         public App()
         {
             InitializeComponent();
-            MainPage = new api2();
+            //MainPage = new api2();
+            MainPage = new EmpresaPage();
             //MainPage = new NavigationPage(new PersonaPage());
         }
 
