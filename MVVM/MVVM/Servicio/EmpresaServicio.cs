@@ -19,15 +19,15 @@ namespace MVVM.Servicio
 
         public EmpresaServicio()
         {
-            if (_empresas == null)
+            if (empresas == null)
             {
-               
+                empresas = new ObservableCollection<EmpresaModel>();
             }
-
         }
+
         public ObservableCollection<EmpresaModel> Consultar()
         {
-            return _empresas;
+            return empresas;
         }
 
         public async Task<ObservableCollection<EmpresaModel>> getEmpresas()
@@ -35,8 +35,15 @@ namespace MVVM.Servicio
             string content = await _client.GetStringAsync(Url);
             List<EmpresaModel> posts = JsonConvert.DeserializeObject<List<EmpresaModel>>(content);
             _empresas = new ObservableCollection<EmpresaModel>(posts);
-            Debug.WriteLine("Consulta ..............." + _empresas[0].ToString() + " nombre : " + _empresas[0].Nombre);
-         return _empresas;   
+            //Debug.WriteLine("Consulta ...............desde servicio" + _empresas[0].Id + " nombre : " + _empresas[0].Nombre);
+            string s = JsonConvert.SerializeObject(_empresas);
+            Debug.WriteLine(s);
+            return _empresas;   
+        }
+
+        public void GuardarLocal(EmpresaModel modelo)
+        {
+            empresas.Add(modelo);
         }
     }
 

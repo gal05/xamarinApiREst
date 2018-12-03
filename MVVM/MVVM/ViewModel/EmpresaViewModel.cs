@@ -1,5 +1,6 @@
 ﻿using MVVM.Model;
 using MVVM.Servicio;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,13 +14,13 @@ namespace MVVM.ViewModel
     public class EmpresaViewModel:EmpresaModel
     {
         public ObservableCollection<EmpresaModel> Empresas { get; set; }
+        public ObservableCollection<EmpresaModel> empresasFromApi { get; set; }
         EmpresaServicio servicio = new EmpresaServicio();
-
         EmpresaModel empresa;
-        private ObservableCollection<EmpresaModel> away;
 
-        public EmpresaViewModel()
+        public  EmpresaViewModel()
         {
+            Empresas = servicio.Consultar();
             ListarCommand = new Command(async () => await listarEmpresasAsync());
             GuardarCommand = new Command(async () => await Guardar());
             ModificarCommand = new Command(async () => await Modificar());
@@ -55,7 +56,7 @@ namespace MVVM.ViewModel
         private async Task Eliminar()
         {
             await Task.Delay(1000);
-            Debug.WriteLine(Empresas[0].ToString());
+            Debug.WriteLine(Empresas[0].Id);
         }
 
         private async Task Limpiar()
@@ -66,11 +67,26 @@ namespace MVVM.ViewModel
             Telefono = 0;
             Nempleados = 0;
         }
-        
-        public  async Task listarEmpresasAsync()
+
+        private async Task Guardar_local(ObservableCollection<EmpresaModel> em) { 
+
+            foreach(EmpresaModel emp in em)
+            {
+                servicio.GuardarLocal(empresa);
+            }
+            await Task.Delay(1000);
+        }
+
+        public  async Task<ObservableCollection<EmpresaModel>> listarEmpresasAsync()
         {
-            Empresas = await servicio.getEmpresas();
-            Debug.WriteLine("Consulta ..............." + Empresas[0].Id + " nombre : " + Empresas[0].Nombre);
+            empresasFromApi = await servicio.getEmpresas();
+            string s = JsonConvert.SerializeObject(empresasFromApi);
+            Debug.WriteLine("desde ciew model     :    "+s);
+            foreach (EmpresaModel emp in empresasFromApi)
+            {
+                servicio.GuardarLocal(empresa);
+            }
+            return Empresas;
         }
     }
 }

@@ -41,9 +41,9 @@ namespace MVVM.Model
             }
         }
 
-        private string _telefono;
+        private int _telefono;
         [JsonProperty("telefono")]
-        public string Telefono {
+        public int Telefono {
             get { return _telefono; }
             set {
                 _telefono = value;
@@ -52,9 +52,9 @@ namespace MVVM.Model
         }
 
 
-        private string _nempleados;
+        private int _nempleados;
         [JsonProperty("nempleados")]
-        public string Nempleados { get {
+        public int Nempleados { get {
                 return _nempleados;
             }
             set {
@@ -68,5 +68,6 @@ namespace MVVM.Model
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-}
+
+    }
 }
