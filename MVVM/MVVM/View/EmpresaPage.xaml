@@ -14,16 +14,17 @@
             <Label Text="Numero de empleados"></Label>
             <Entry Text="{Binding  Nempleados}" Keyboard="Numeric"></Entry>
 
+            <Button Text="Listar" Command="{Binding ListarCommand}"></Button>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"></Button>
             <Button Text="Modificar" Command="{Binding ModificarCommand }"></Button>
             <Button Text="Eliminar" Command="{Binding EliminarCommand}"></Button>
             <Button Text="Limpiar" Command="{Binding LimpiarCommand}"></Button>
-            <ListView ItemsSource="{Binding Empresas}">
+            <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding Nombre}"/>
-                        </ViewCell>
+                        <TextCell Text="{Binding Id}">
+
+                        </TextCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

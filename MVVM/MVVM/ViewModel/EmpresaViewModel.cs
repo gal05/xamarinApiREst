@@ -16,16 +16,17 @@ namespace MVVM.ViewModel
         EmpresaServicio servicio = new EmpresaServicio();
 
         EmpresaModel empresa;
+        private ObservableCollection<EmpresaModel> away;
 
         public EmpresaViewModel()
         {
-            Empresas = servicio.Consultar();
+            ListarCommand = new Command(async () => await listarEmpresasAsync());
             GuardarCommand = new Command(async () => await Guardar());
             ModificarCommand = new Command(async () => await Modificar());
             EliminarCommand = new Command(async () => await Eliminar());
             LimpiarCommand = new Command(async () => await Limpiar());
         }
-
+        public Command ListarCommand { get; set; }
         public Command GuardarCommand { get; set; }
         public Command ModificarCommand { get; set; }
         public Command EliminarCommand { get; set; }
@@ -64,6 +65,12 @@ namespace MVVM.ViewModel
             Direccion= "";
             Telefono = 0;
             Nempleados = 0;
+        }
+        
+        public  async Task listarEmpresasAsync()
+        {
+            Empresas = await servicio.getEmpresas();
+            Debug.WriteLine("Consulta ..............." + Empresas[0].Id + " nombre : " + Empresas[0].Nombre);
         }
     }
 }

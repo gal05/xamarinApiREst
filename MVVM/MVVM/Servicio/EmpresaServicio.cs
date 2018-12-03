@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MVVM.Servicio
 {
@@ -13,14 +14,14 @@ namespace MVVM.Servicio
     {
         public ObservableCollection<EmpresaModel> empresas { get; set; }
         private ObservableCollection<EmpresaModel> _empresas;
-        private const string Url = "https://chat-nodejs-gal05.c9users.io/personas";
+        private const string Url = "https://chat-nodejs-gal05.c9users.io/empresas";
         private readonly HttpClient _client = new HttpClient();
 
         public EmpresaServicio()
         {
             if (_empresas == null)
             {
-                getEmpresas();
+               
             }
 
         }
@@ -29,12 +30,13 @@ namespace MVVM.Servicio
             return _empresas;
         }
 
-        private async void getEmpresas()
+        public async Task<ObservableCollection<EmpresaModel>> getEmpresas()
         {
             string content = await _client.GetStringAsync(Url);
             List<EmpresaModel> posts = JsonConvert.DeserializeObject<List<EmpresaModel>>(content);
             _empresas = new ObservableCollection<EmpresaModel>(posts);
             Debug.WriteLine("Consulta ..............." + _empresas[0].Id + " nombre : " + _empresas[0].Nombre);
+         return _empresas;   
         }
     }
 
