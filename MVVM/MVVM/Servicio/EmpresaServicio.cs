@@ -22,6 +22,7 @@ namespace MVVM.Servicio
             if (empresas == null)
             {
                 empresas = new ObservableCollection<EmpresaModel>();
+             
             }
         }
 

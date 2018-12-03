@@ -19,6 +19,7 @@
             <Button Text="Modificar" Command="{Binding ModificarCommand }"></Button>
             <Button Text="Eliminar" Command="{Binding EliminarCommand}"></Button>
             <Button Text="Limpiar" Command="{Binding LimpiarCommand}"></Button>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding Isbusy}"></ActivityIndicator>
             <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

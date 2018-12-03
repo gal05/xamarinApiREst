@@ -16,16 +16,18 @@ namespace MVVM.ViewModel
         public ObservableCollection<EmpresaModel> Empresas { get; set; }
         public ObservableCollection<EmpresaModel> empresasFromApi { get; set; }
         EmpresaServicio servicio = new EmpresaServicio();
+        private bool IsBusy = false;
         EmpresaModel empresa;
 
         public  EmpresaViewModel()
         {
             Empresas = servicio.Consultar();
-            ListarCommand = new Command(async () => await listarEmpresasAsync());
-            GuardarCommand = new Command(async () => await Guardar());
-            ModificarCommand = new Command(async () => await Modificar());
-            EliminarCommand = new Command(async () => await Eliminar());
-            LimpiarCommand = new Command(async () => await Limpiar());
+
+            ListarCommand = new Command(async () => await listarEmpresasAsync(), () => !IsBusy);
+            GuardarCommand = new Command(async () => await Guardar(), () => !IsBusy);
+            ModificarCommand = new Command(async () => await Modificar(), () => !IsBusy);
+            EliminarCommand = new Command(async () => await Eliminar(), () => !IsBusy);
+            LimpiarCommand = new Command(Limpiar, () => !IsBusy);
         }
         public Command ListarCommand { get; set; }
         public Command GuardarCommand { get; set; }
@@ -35,6 +37,7 @@ namespace MVVM.ViewModel
 
         private async Task Guardar()
         {
+            IsBusy = true;
             await Task.Delay(1000);
             Guid IdEmpresa = Guid.NewGuid();
             empresa = new EmpresaModel()
@@ -46,7 +49,7 @@ namespace MVVM.ViewModel
                 Id = IdEmpresa.ToString()
             };
             Debug.WriteLine("guardar el id ..............."+empresa.Id+" nombre : " + empresa.Nombre);
-            
+            IsBusy = false;
         }
         private async Task Modificar()
         {
@@ -59,34 +62,28 @@ namespace MVVM.ViewModel
             Debug.WriteLine(Empresas[0].Id);
         }
 
-        private async Task Limpiar()
+        private void  Limpiar()
         {
-            await Task.Delay(1000);
             Nombre = "";
             Direccion= "";
             Telefono = 0;
             Nempleados = 0;
         }
 
-        private async Task Guardar_local(ObservableCollection<EmpresaModel> em) { 
 
-            foreach(EmpresaModel emp in em)
-            {
-                servicio.GuardarLocal(empresa);
-            }
-            await Task.Delay(1000);
-        }
-
-        public  async Task<ObservableCollection<EmpresaModel>> listarEmpresasAsync()
+        public  async Task listarEmpresasAsync()
         {
             empresasFromApi = await servicio.getEmpresas();
             string s = JsonConvert.SerializeObject(empresasFromApi);
             Debug.WriteLine("desde ciew model     :    "+s);
             foreach (EmpresaModel emp in empresasFromApi)
             {
-                servicio.GuardarLocal(empresa);
+                servicio.GuardarLocal(emp);
+                Debug.WriteLine(emp.Id);
             }
-            return Empresas;
+            string a = JsonConvert.SerializeObject(Empresas);
+            Debug.WriteLine("desde viewmodelContructor     :    " + a);
+            await Task.Delay(2000);
         }
     }
 }
