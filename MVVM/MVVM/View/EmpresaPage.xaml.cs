@@ -20,9 +20,9 @@ namespace MVVM.View
 		{
 			InitializeComponent ();
             BindingContext = contexto;
-            LvEmpresas.ItemSelected += LvEmpresas_ItemSelected;
+            //LvEmpresas.ItemSelected += LvEmpresas_ItemSelected;
         }
-        private void LvEmpresas_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        /*private void LvEmpresas_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
@@ -33,6 +33,6 @@ namespace MVVM.View
                 contexto.Nempleados = empresa.Nempleados;
                 contexto.Id= empresa.Id;
             }
-        }
+        }*/
     }
 }

@@ -14,7 +14,7 @@ namespace MVVM.Servicio
         public ObservableCollection<PersonaModel> personas { get; set; }
         private const string URL = "http://localhost:3000/personas";
         private readonly HttpClient client = new HttpClient();
-        private ObservableCollection<PersonaModel> _post;
+        //private ObservableCollection<PersonaModel> _post;
 
 
         public PersonaServicio()

@@ -18,12 +18,12 @@
             <Button Text="Modificar" Command="{Binding ModificarCommand }"></Button>
             <Button Text="Eliminar" Command="{Binding EliminarCommand}"></Button>
             <Button Text="Limpiar" Command="{Binding LimpiarCommand}"></Button>
-            <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
+            <ListView ItemsSource="{Binding Empresas}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Id}" Detail="{Binding Nombre}">
-
-                        </TextCell>
+                        <ViewCell>
+                            <Label Text="{Binding Nombre}"/>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

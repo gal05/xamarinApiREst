@@ -1,4 +1,5 @@
 ﻿using MVVM.Model;
+using MVVM.Servicio;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,14 +12,14 @@ namespace MVVM.ViewModel
 {
     public class EmpresaViewModel:EmpresaModel
     {
-        public ObservableCollection<EmpresaModel> empresas { get; set; }
-        //PersonaServicio servicio = new PersonaServicio();
+        public ObservableCollection<EmpresaModel> Empresas { get; set; }
+        EmpresaServicio servicio = new EmpresaServicio();
 
         EmpresaModel empresa;
 
         public EmpresaViewModel()
         {
-            Personas = servicio.Consultar();
+            Empresas = servicio.Consultar();
             GuardarCommand = new Command(async () => await Guardar());
             ModificarCommand = new Command(async () => await Modificar());
             EliminarCommand = new Command(async () => await Eliminar());
@@ -53,7 +54,7 @@ namespace MVVM.ViewModel
         private async Task Eliminar()
         {
             await Task.Delay(1000);
-            Debug.WriteLine("Guarda ctM!");
+            Debug.WriteLine(Empresas);
         }
 
         private async Task Limpiar()
