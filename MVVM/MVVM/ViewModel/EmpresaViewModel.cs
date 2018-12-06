@@ -16,13 +16,13 @@ namespace MVVM.ViewModel
         public ObservableCollection<EmpresaModel> Empresas { get; set; }
         public ObservableCollection<EmpresaModel> empresasFromApi { get; set; }
         EmpresaServicio servicio = new EmpresaServicio();
-        private bool IsBusy = false;
+
         EmpresaModel empresa;
 
         public  EmpresaViewModel()
         {
             Empresas = servicio.Consultar();
-
+            IsBusy = false;
             ListarCommand = new Command(async () => await listarEmpresasAsync(), () => !IsBusy);
             GuardarCommand = new Command(async () => await Guardar(), () => !IsBusy);
             ModificarCommand = new Command(async () => await Modificar(), () => !IsBusy);
@@ -34,6 +34,9 @@ namespace MVVM.ViewModel
         public Command ModificarCommand { get; set; }
         public Command EliminarCommand { get; set; }
         public Command LimpiarCommand { get; set; }
+
+  
+
 
         private async Task Guardar()
         {
@@ -61,13 +64,28 @@ namespace MVVM.ViewModel
         }
         private async Task Modificar()
         {
+            IsBusy = true;
+            empresa = new EmpresaModel()
+            {
+                Nombre = Nombre,
+                Direccion = Direccion,
+                Telefono = Telefono,
+                Nempleados = Nempleados,
+                Id = Id
+            };
+            Debug.WriteLine("modificar el id ..............." + empresa.Id + " nombre : " + empresa.Nombre);
+            servicio.Update(empresa);
             await Task.Delay(1000);
-            Debug.WriteLine("Guarda ctM!");
+            IsBusy = false;
         }
         private async Task Eliminar()
         {
+            IsBusy = true;
+            servicio.Delete(Id);
             await Task.Delay(1000);
             Debug.WriteLine(Empresas[0].Id);
+            
+            IsBusy = false;
         }
 
         private void  Limpiar()
@@ -86,7 +104,7 @@ namespace MVVM.ViewModel
             Empresas.Clear();
             empresasFromApi = await servicio.getEmpresas();
             string s = JsonConvert.SerializeObject(empresasFromApi);
-            Debug.WriteLine("desde ciew model     :    "+s);
+            Debug.WriteLine("desde view model     :    "+s);
             foreach (EmpresaModel emp in empresasFromApi)
             {
                 servicio.GuardarLocal(emp);
@@ -94,7 +112,7 @@ namespace MVVM.ViewModel
             }
             //string a = JsonConvert.SerializeObject(Empresas);
             //Debug.WriteLine("desde viewmodelContructor     :    " + a);
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             IsBusy = false;
         }
     }

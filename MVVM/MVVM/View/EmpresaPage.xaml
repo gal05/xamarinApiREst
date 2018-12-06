@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MVVM.View.EmpresaPage">
-    <ScrollView BackgroundColor="DarkSalmon">
+    <ScrollView BackgroundColor="DeepSkyBlue">
         <StackLayout Padding="20">
             <Label Text="APP EMRESA :v" HorizontalOptions="Center" TextColor="GreenYellow" FontSize="20"></Label>
             <Label Text="{Binding  Id}"></Label>
@@ -20,11 +20,11 @@
             <Button Text="Modificar" Command="{Binding ModificarCommand }" TextColor="#A9F5A9" BackgroundColor="Blue"></Button>
             <Button Text="Eliminar" Command="{Binding EliminarCommand}" TextColor="#A9F5A9" BackgroundColor="DarkCyan"></Button>
             <Button Text="Limpiar" Command="{Binding LimpiarCommand}" TextColor="#A9F5A9" BackgroundColor="DarkGreen"></Button>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding Isbusy}"></ActivityIndicator>
+            <ActivityIndicator  IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red"></ActivityIndicator>
             <ListView x:Name="LvEmpresas" ItemsSource="{Binding Empresas}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Id}">
+                        <TextCell Text="{Binding Id,StringFormat='ID: {0}'}" Detail="{Binding Nombre,StringFormat='Nombre de la empresa : {0}'}">
                         </TextCell>
                         
                     </DataTemplate>

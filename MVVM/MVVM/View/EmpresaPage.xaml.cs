@@ -24,6 +24,7 @@ namespace MVVM.View
             BindingContext = contexto;
             //Empresas.ItemSource = contexto.ListarCommand;
             LvEmpresas.ItemSelected += LvEmpresas_ItemSelected;
+            
         }
         private void LvEmpresas_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
